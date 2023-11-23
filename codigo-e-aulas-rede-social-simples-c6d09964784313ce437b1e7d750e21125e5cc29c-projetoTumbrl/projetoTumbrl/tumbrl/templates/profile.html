@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ccs/bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <title>Perfil do {{ user.username }}</title>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="display-4 mb-4">Faaala, {{ user.username }}! - {{ mesa }}</h1>
+
+    <div class="d-flex justify-content-between mb-3" role="group" aria-label="Links de Navegação">
+        <a href="{{ url_for('homepage') }}" class="btn btn-primary">HOME</a>
+        <a href="{{ url_for('delete_account') }}" class="btn btn-danger">Excluir Conta</a>
+    </div>
+
+    {% if form %}
+        <div class="card mt-4">
+            <div class="card-body">
+                <h2 class="card-title">MEU PERFIL</h2>
+
+                <form method="POST" enctype="multipart/form-data">
+                    {{ form.csrf_token }}
+
+                    <div class="mb-3">
+                        {{ form.text.label(class="form-label") }}
+                        {{ form.text(class="form-control") }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.photo.label(class="form-label") }}
+                        {{ form.photo(class="form-control") }}
+                    </div>
+
+                    {{ form.btn(class="btn btn-success") }}
+                </form>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="mt-4">
+        <h2>Posts do Usuário</h2>
+        {% for post in user.posts %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <p class="card-text">{{ post.post_text }}</p>
+                    <img class="img-fluid rounded" src="{{ url_for('static', filename='fotos_dos_posts/{}'.format(post.post_img)) }}" alt="Imagem do Post">
+                    <a href="{{ url_for('delete_post', post_id=post.id) }}" class="btn btn-danger">Excluir Post</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>
+
+
+
+
+

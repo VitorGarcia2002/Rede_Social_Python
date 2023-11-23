@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ccs/bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <title>Delete Account</title>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2>Deletar sua conta</h2>
+    <p>Tem certeza de que deseja excluir sua conta? Essa ação não pode ser desfeita</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="alert alert-{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        {{ form.csrf_token }}
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            {{ form.email(class="form-control") }}
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Senha</label>
+            {{ form.password(class="form-control") }}
+        </div>
+
+        <div class="mb-3">
+            <label for="password_confirm" class="form-label">Confirme sua Senha</label>
+            {{ form.password_confirm(class="form-control") }}
+        </div>
+
+        <button type="submit" class="btn btn-danger">Deletar conta</button>
+    </form>
+</div>
+
+</body>
+</html>

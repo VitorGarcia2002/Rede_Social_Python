@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ccs/bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <title>Seu Título Aqui</title>
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Bem-vindo ao HOMMER</h2>
+
+                    {% block formulario %}
+                        <form method="POST">
+                            {{ form.csrf_token }}
+
+                            <div class="mb-3">
+                                {{ form.email.label(class="form-label") }}
+                                {{ form.email(class="form-control") }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form.password.label(class="form-label") }}
+                                {{ form.password(class="form-control") }}
+                            </div>
+
+                            {{ form.btn(class="btn btn-primary w-100") }}
+                        </form>
+                    {% endblock %}
+                    <div class="text-center mt-3">
+                        <a href="{{ url_for('createAccount') }}" class="btn btn-secondary w-100">Nova Conta</a>
+                        <div class="text-center mt-3">
+                            <a href="{{ url_for('change_password') }}" class="btn btn-info w-100">Redefinir Senha</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include "navbar.html" %}
+
+    <div class="text-center mt-4">
+        {% for i in range(0, 5): %}
+            <h1 class="display-4">{{ textinho }}</h1>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>
